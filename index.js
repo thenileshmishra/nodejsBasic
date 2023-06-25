@@ -1,10 +1,10 @@
 const dotenv = require("dotenv");
 const express = require("express");
 const app = express();
-const PORT = 8000;
-
 dotenv.config({ path: "./config.env" });
 require("./db/conn");
+
+const PORT = process.env.PORT;
 
 app.use(express.json());
 // we link the router files to make our route easy
