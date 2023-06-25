@@ -6,21 +6,16 @@ const PORT = 8000;
 dotenv.config({ path: "./config.env" });
 require("./db/conn");
 
-app.get("/", (req, res) => {
-  res.send(`Hello world from the server`);
-});
+app.use(express.json());
+// we link the router files to make our route easy
+app.use(require("./router/auth"));
 
-app.get("/about", (req, res) => {
-  res.send(`Hello about world from the server`);
-});
+const User = require("./router/auth");
 
-app.get("/contact", (req, res) => {
-  res.send(`Hello contact world from the server`);
-});
-
-app.get("/signin", (req, res) => {
-  res.send(`Hello singin world from the server`);
-});
+const middleware = (req, res, next) => {
+  console.log(`Hello my Middleware`);
+  next();
+};
 
 app.listen(PORT, function (err) {
   if (err) console.log("Error in server setup");
