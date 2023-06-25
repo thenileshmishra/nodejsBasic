@@ -39,6 +39,38 @@ router.post("/register", (req, res) => {
     });
 });
 
+// login route
+
+// router.post("/signin", async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
+//     if (!email || !password) {
+//       return res.status(400).json({ error: "Plz Filled the data" });
+//     }
+//   } catch (err) {
+//     console.log("Error in SignIN", err);
+//   }
+// });
+
+router.post("/signin", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ error: "Please fill in the required data" });
+    }
+
+    // ... additional sign-in logic ...
+    const userLogin = await User.findOne({ email: email });
+    // If sign-in is successful, send a success response
+    res.json({ success: true });
+  } catch (err) {
+    console.log("Error in SignIn", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.get("/about", (req, res) => {
   res.send(`Hello about world from the server`);
 });
